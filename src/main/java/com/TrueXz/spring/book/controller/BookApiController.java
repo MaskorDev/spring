@@ -6,6 +6,7 @@ import com.TrueXz.spring.book.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookApiController {
@@ -31,5 +32,10 @@ public class BookApiController {
     @PostMapping("/api/v1/book")
     public BookEntity create(@RequestBody BookEntity request) {
         return bookService.create(request.getTitle(), request.getDescription());
+    }
+
+    @PutMapping("/api/v1/book/{id}")
+    public BookEntity update(@PathVariable Integer id ,@RequestBody BookEntity request) {
+        return bookService.update(request).orElseThrow(ResourceNotFoundException::new);
     }
 }
